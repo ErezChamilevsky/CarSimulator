@@ -140,9 +140,9 @@ public class Control{
             
             playerOrder();
             this.view.run();
-            if(i == 20){
-                break;
-            }
+            // if(i == 20){
+            //     break;
+            // }
             long usedTime = System.currentTimeMillis() - startTime;
             long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;
             if (milliSecondLeftToSleep > 0) {
