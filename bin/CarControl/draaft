@@ -1,0 +1,55 @@
+    
+    ************from car************
+    // we want to check if one of npc/sprites touches the player, we will make the
+    // rectangle of the car
+    // as two triangle and than we have a function that checks if a point is inside
+    // a triangle
+    public boolean isNextStepCollision(World sprite) {
+        // want to be done on next step rectangle
+        Rectangle nextStep = new Rectangle(
+                new Point(this.representsRectangle.getTopLeftPoint().getX(),
+                        this.representsRectangle.getTopLeftPoint().getY() + this.velocity.getDy()),
+                WIDTH, HEIGHT);
+
+        Triangle halfOne = new Triangle(nextStep.getPoints()[0],
+                nextStep.getPoints()[1], nextStep.getPoints()[2]);
+        Triangle halfTwo = new Triangle(nextStep.getPoints()[0],
+                nextStep.getPoints()[3], nextStep.getPoints()[2]);
+
+        for (Point a : sprite.getRectangle().getPoints()) {
+            if (halfOne.isPointInTriangle(a) || halfTwo.isPointInTriangle(a)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void collisionCheck(World sprite) {
+    if (!(sprite instanceof Lane) && this.isNextStepCollision(sprite)) {
+    this.brake();
+    }
+    }
+
+    /*******DISPLAY */
+    
+        //grass init
+        GrassGUI grassRight = new GrassGUI(new Point(0,0));
+        GrassGUI grassLeft = new GrassGUI(new Point(670,0));
+        addSprite(grassLeft);
+        addSprite(grassRight);
+
+        //Lane init
+        LaneGUI laneRight = new LaneGUI(new Point(130,0));
+        LaneGUI laneLeft = new LaneGUI(new Point(425,0));
+        addSprite(laneLeft);
+        addSprite(laneRight);
+
+        //Between lanes init
+        LaneDivider dividerRight = new LaneDivider(new Point(355,0));
+        LaneDivider dividerLeft = new LaneDivider(new Point(395,0));
+        addSprite(dividerLeft);
+        addSprite(dividerRight);
+        
+        //Side init
+        SidewalkGUI side = new SidewalkGUI(new Point(660, 0));
+        addSprite(side);
