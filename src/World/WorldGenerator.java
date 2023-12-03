@@ -47,12 +47,12 @@ public class WorldGenerator {
         return this.car;
     }
 
-    public double getVelocity(){
+    public double getVelocity() {
         return this.velocity;
     }
 
     public ArrayList<World> getEntities() {
-        return this.entities; 
+        return this.entities;
     }
 
     public void addSprit(World sprite) {
@@ -84,15 +84,15 @@ public class WorldGenerator {
         // second lane 545 -> 635 --> x range : 545-595
         Random r = new Random();
         int i;
-        if (r.nextInt(RIGHT, LEFT) == LEFT) {
+        if (r.nextInt(RIGHT, LEFT + 1) == LEFT) {
             i = r.nextInt(442, 495);
         } else {
             i = r.nextInt(545, 595);
         }
-        World npc = new Npc(new Point(i,CARYSTART), CARWIDTH, CARHEIGHT);
+        World npc = new Npc(new Point(i, CARYSTART), CARWIDTH, CARHEIGHT);
         this.movingEntities.add(npc);
         this.entities.add(npc);
-        
+
     }
 
     public void initBorders() {
@@ -155,13 +155,13 @@ public class WorldGenerator {
         for (AbstractSafty safe : this.safty) {
             safe.run();
         }
-        for(World entity : this.movingEntities){
+        for (World entity : this.movingEntities) {
             entity.move();
         }
-
 
         // move the whole screen
         // move moving entities
         // is there collision
     }
+
 }
