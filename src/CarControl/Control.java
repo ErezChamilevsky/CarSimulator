@@ -3,6 +3,7 @@ package CarControl;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
 
 import GUI.Display;
 import GUI.NPCGUI;
@@ -26,13 +27,13 @@ public class Control{
     private Display view;
     private WorldGenerator model;
     private KeyboardSensor keyboard;
-    private HashMap<World, RepresentGUI> npcMap;
+    private ConcurrentHashMap<World, RepresentGUI> npcMap;
 
     public Control() {
         this.view = Display.getInstance();
         this.model = WorldGenerator.getInstance();
         this.keyboard = this.view.getKeyboard();
-        this.npcMap = new HashMap<World, RepresentGUI>();
+        this.npcMap = new ConcurrentHashMap<World, RepresentGUI>();
     }
 
     public void viewByModel(){
@@ -128,6 +129,7 @@ public class Control{
         int i = 0;
         while(true){
             i++;
+            i %= 250;
             this.model.run();
             this.npcManagement();
             viewByModel();
@@ -140,9 +142,9 @@ public class Control{
             
             playerOrder();
             this.view.run();
-            // if(i == 20){
-            //     break;
-            // }
+            if(i % 250 == 0){
+                this.model.npcCreator();
+            }
             long usedTime = System.currentTimeMillis() - startTime;
             long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;
             if (milliSecondLeftToSleep > 0) {
