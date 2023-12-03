@@ -1,5 +1,6 @@
 package CarControl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -15,14 +16,13 @@ import biuoop.KeyboardSensor;
 import biuoop.Sleeper;
 
 //will be the control of the mvc
-public class Control{
+public class Control {
     public static final int STAY = 0;
     public static final int RIGHT = 1;
     public static final int LEFT = 2;
     public static final int OFF = 0;
     public static final int ON = 1;
     public static final int BLIND = 2;
-    
 
     private Display view;
     private WorldGenerator model;
@@ -36,24 +36,25 @@ public class Control{
         this.npcMap = new ConcurrentHashMap<World, RepresentGUI>();
     }
 
-    public void viewByModel(){
-        //blind spot
+    public void viewByModel() {
+        // blind spot
         this.view.getLeftSignalGUI().setLeftBlind(this.model.getCar().leftBlind);
         this.view.getRightSignalGUI().setRightBlind(this.model.getCar().rightBlind);
 
-        //background move
+        // background move
         this.view.background.setPoint(this.model.moveTheBackground(this.view.background.getPoint()));
 
-        //npc
+        // npc
         this.npcMovement();
 
-        //the bottom pannel
+        // the bottom pannel
         this.view.bottomPanel.setVelocity(this.model.getVelocity());
 
     }
 
     public void playerOrder() {
-        //changing the point the model, returning the current point of the car and set it in the view's car 
+        // changing the point the model, returning the current point of the car and set
+        // it in the view's car
         if (keyboard.isPressed(KeyboardSensor.LEFT_KEY)) {
             this.view.carMovement(this.model.carMovement(LEFT));
         } else if (keyboard.isPressed(KeyboardSensor.RIGHT_KEY)) {
@@ -62,7 +63,8 @@ public class Control{
             this.view.carMovement(this.model.carMovement(STAY));
         }
 
-        //changing the signal in the model, returning the current state and set it in the view
+        // changing the signal in the model, returning the current state and set it in
+        // the view
         if (keyboard.isPressed("z")) {
             this.model.getCar().setSignal(LEFT);
             this.view.getLeftSignalGUI().setLefttSignal(this.model.getCar().isLeftSignalOn());
@@ -71,55 +73,61 @@ public class Control{
             this.view.getRightSignalGUI().setIsRightSignalOn(this.model.getCar().isRightSignalOn());
         }
     }
-    /*******************NPC managemant *************/
-    public void npcManagement(){
+
+    /******************* NPC managemant *************/
+    public void npcManagement() {
         deleteFromMap();
         addToMap();
     }
 
-    //cheking if needed to delete
-    public void deleteFromMap(){
-        for(World npc : this.npcMap.keySet()){
-            if(this.model.isOutOfScreen(npc)){
+    // cheking if needed to delete
+    public void deleteFromMap() {
+        for (World npc : this.npcMap.keySet()) {
+            if (this.model.isOutOfScreen(npc)) {
                 this.view.removeNpc(this.npcMap.get(npc));
                 this.npcMap.remove(npc);
             }
         }
     }
 
-    //checking if needed to add
-    public void addToMap(){
-        for(World npc : this.model.getMovingEntities()){
-            if(!this.npcMap.containsKey(npc)){
-                this.npcMap.put(npc, this.view.newNpc(npc.getUpLeft()));
+    // checking if needed to add
+    public void addToMap() {
+        for (World npc : this.model.getCopyOfMovingEntitiesList()) {
+            if (!this.npcMap.containsKey(npc)) {
+                RepresentGUI npcGui = this.view.newNpc(npc.getUpLeft());
+                if (npcGui.isImageNull()) { // in case that it cannot be represent
+                    this.model.getMovingEntities().remove(npc);
+                    this.model.getEntities().remove(npc);
+                } else {
+                    this.npcMap.put(npc, npcGui);
+                }
             }
         }
     }
 
-    //helping function
-    public void npcMovement(){
-        for(RepresentGUI npc : this.npcMap.values()){
+    // helping function
+    public void npcMovement() {
+        for (RepresentGUI npc : this.npcMap.values()) {
             World temp = keyByValue(npc);
-            if(temp == null){
+            if (temp == null) {
                 continue;
             }
             npc.setPoint(temp.getUpLeft());
         }
     }
 
-    public World keyByValue(RepresentGUI value){
-        for(World a : this.npcMap.keySet()){
-            if(this.npcMap.get(a) == value){
+    public World keyByValue(RepresentGUI value) {
+        for (World a : this.npcMap.keySet()) {
+            if (this.npcMap.get(a) == value) {
                 return a;
             }
         }
         return null;
     }
 
-
     /**************************************************/
 
-    public void run(){
+    public void run() {
         // run
 
         int framesPerSecond = 60;
@@ -127,22 +135,22 @@ public class Control{
         Sleeper sleeper = new Sleeper();
         this.model.npcCreator();
         int i = 0;
-        while(true){
+        while (true) {
             i++;
             i %= 250;
             this.model.run();
             this.npcManagement();
             viewByModel();
-            
-            if(this.model.isThereCollision()){
+
+            if (this.model.isThereCollision()) {
                 break;
             }
 
             long startTime = System.currentTimeMillis(); // timing
-            
+
             playerOrder();
             this.view.run();
-            if(i % 250 == 0){
+            if (i % 250 == 0) {
                 this.model.npcCreator();
             }
             long usedTime = System.currentTimeMillis() - startTime;
@@ -151,8 +159,10 @@ public class Control{
                 sleeper.sleepFor(milliSecondLeftToSleep);
             }
         }
-        // System.out.println(this.model.getCar().getPoint().getX() + " " + this.model.getCar().getPoint().getY());
-        // System.out.println(this.model.getMovingEntities().get(0).getUpLeft().getX() + " " + this.model.getMovingEntities().get(0).getUpLeft().getX());
+        // System.out.println(this.model.getCar().getPoint().getX() + " " +
+        // this.model.getCar().getPoint().getY());
+        // System.out.println(this.model.getMovingEntities().get(0).getUpLeft().getX() +
+        // " " + this.model.getMovingEntities().get(0).getUpLeft().getX());
     }
 
     public static void main(String[] args) {

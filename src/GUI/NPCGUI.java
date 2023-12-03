@@ -52,5 +52,11 @@ public class NPCGUI extends RepresentGUI {
         d.drawImage((int) super.upLeft.getX(), (int) super.upLeft.getY(), this.image);
     }
 
-    
+    @Override
+    public boolean isImageNull(){
+        if(this.image == null){
+            return true;
+        }
+        return super.isImageNull();
+    }    
 }

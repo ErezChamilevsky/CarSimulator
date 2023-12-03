@@ -70,7 +70,14 @@ public class WorldGenerator {
     public ArrayList<World> getMovingEntities() {
         return this.movingEntities;
     }
-
+    /***********clone of arraylist **********/
+    public ArrayList<World> getCopyOfMovingEntitiesList(){
+        ArrayList<World> copy = new ArrayList<World>();
+        for(World a : this.getMovingEntities()){
+            copy.add(a);
+        }
+        return copy;
+    }
     /******** INIT *************************/
     public void init() {
         this.carPanel.setCar(car);
@@ -159,7 +166,7 @@ public class WorldGenerator {
             entity.move();
         }
 
-        // move the whole screen
+        // move the whole screen velocity++
         // move moving entities
         // is there collision
     }

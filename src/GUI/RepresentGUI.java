@@ -20,4 +20,7 @@ public abstract class RepresentGUI {
         return this.upLeft;
     }
     
+    public boolean isImageNull(){
+        return false;
+    } 
 }
