@@ -13,7 +13,7 @@ public class Triangle {
         this.sides = null;
     }
 
-    public Point[] pointsInit(){
+    public Point[] getPointsArray(){
         Point[] points = new Point[3];
         points[0] = p1;
         points[1] = p2;
@@ -38,7 +38,7 @@ public class Triangle {
     }
 
     public Point[] sortByDistanceFromPoint(Point point){
-        Point[] points = this.pointsInit();
+        Point[] points = this.getPointsArray();
         for(int i = 1 ; i < points.length ; i++){
             for(int j = 0; j <  points.length - 1; j++){
                 if(points[j].distance(point) < points[j+1].distance(point)){
