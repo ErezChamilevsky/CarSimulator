@@ -39,4 +39,27 @@ public class Line {
     public Point getMiddle() {
         return new Point((end.getX() + start.getX()) / 2, (end.getY() + start.getY()) / 2);
     }
+
+    public boolean doesIntersect(Line line) {
+        double x1 = this.start.getX();
+        double y1 = this.start.getY();
+        double x2 = this.end.getX();
+        double y2 = this.end.getY();
+        double x3 = line.getEnd().getX();
+        double y3 = line.getEnd().getY();
+        double x4 = line.getStrat().getX();
+        double y4 = line.getStrat().getY();
+
+        double det = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+
+        if (det == 0) {
+            // Lines are parallel, no intersection
+            return false;
+        } else {
+            double t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / det;
+            double s = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / det;
+
+            return t >= 0 && t <= 1 && s >= 0 && s <= 1;
+        }
+    }
 }

@@ -84,6 +84,7 @@ public class Rectangle {
 
     // make the rectangle to two triangle, check if points in it
     // after, take the middle and check if it in one of triangle
+    // needed to be changed casue the borders don't give true for collision
     public boolean isLineCrossRectangle(Line line) {
 
         Triangle one = new Triangle(this.points[0], this.points[1], this.points[2]);
@@ -91,26 +92,23 @@ public class Rectangle {
 
         if (one.isPointInTriangle(line.getStrat()) || one.isPointInTriangle(line.getEnd())
                 || two.isPointInTriangle(line.getStrat()) || two.isPointInTriangle(line.getEnd())) {
-            boolean t = one.isPointInTriangle(line.getStrat());
-            boolean b = one.isPointInTriangle(line.getEnd());
-            boolean g = two.isPointInTriangle(line.getStrat());
-            boolean l = two.isPointInTriangle(line.getEnd());
+            // one of the line's vertex inside the rectangle
 
             return true;
         }
 
-        Point midPoint = line.getMiddle();
-        if (one.isPointInTriangle(midPoint) || two.isPointInTriangle(midPoint)) {
-            return true;
+        for (Line a : this.borders) {
+            if (a.doesIntersect(line)) {
+                return true;
+            }
         }
-
         return false;
     }
 
     public static void main(String[] args) {
 
-        Rectangle bob = new Rectangle(new Point(560, 300), 37, 80);
-        Line l2 = new Line(new Point(596, 220), new Point(559, 220));
+        Rectangle bob = new Rectangle(new Point(554, 300), 37, 80);
+        Line l2 = new Line(new Point(591, 14.760448830503073), new Point(591, 14.760448830503073 + 80));
         System.out.println(bob.isLineCrossRectangle(l2));
 
         bob = new Rectangle(new Point(557, 300), 37, 80);
