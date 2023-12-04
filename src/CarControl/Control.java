@@ -1,15 +1,9 @@
 package CarControl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
 import GUI.Display;
-import GUI.NPCGUI;
 import GUI.RepresentGUI;
-import World.Npc;
 import World.World;
 import World.WorldGenerator;
 import biuoop.KeyboardSensor;

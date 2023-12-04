@@ -164,11 +164,8 @@ public class WorldGenerator {
         }
         for (World entity : this.movingEntities) {
             entity.move();
+            entity.setPoint(new Point(entity.getUpLeft().getX(), entity.getUpLeft().getY() + velocity));
         }
-
-        // move the whole screen velocity++
-        // move moving entities
-        // is there collision
     }
 
 }

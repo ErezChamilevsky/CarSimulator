@@ -22,4 +22,9 @@ public class Obstacle implements World {
     public void move(){
         //do not do anything
     }
+
+    @Override
+    public void setPoint(Point point){
+        this.getRectangle().setTopLeftPoint(point);
+    }
 }
