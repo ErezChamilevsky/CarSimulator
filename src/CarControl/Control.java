@@ -147,6 +147,10 @@ public class Control {
             if (i % 250 == 0) {
                 this.model.npcCreator();
             }
+
+            if(i % 125 == 0){
+                this.model.setVelocity(this.model.getVelocity() + 0.5);
+            }
             long usedTime = System.currentTimeMillis() - startTime;
             long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;
             if (milliSecondLeftToSleep > 0) {

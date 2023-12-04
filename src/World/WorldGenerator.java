@@ -47,6 +47,10 @@ public class WorldGenerator {
         return this.car;
     }
 
+    public void setVelocity(double velocity) {
+        this.velocity = velocity;
+    }
+
     public double getVelocity() {
         return this.velocity;
     }
