@@ -30,6 +30,10 @@ The use of polymorphism was needed in order to manage both model and view's obje
 The GUI package has created by my University. Here the doc https://u.cs.biu.ac.il/~kleinay/biuoop-1.4-doc/ .
 
 
+![ezgif-1-f8a2c98764](https://github.com/ErezChamilevsky/CarSimulator/assets/118533992/2b121c5a-8f2c-42b6-b14b-90041a9bf266)
+
+The yellow circle is a blind spot sensor's alert.
+
 
 https://github.com/ErezChamilevsky/CarSimulator/assets/118533992/dac98fb8-4b81-47ef-b2bc-9da58f29366d
 
