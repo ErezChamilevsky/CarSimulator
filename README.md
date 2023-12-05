@@ -1,18 +1,36 @@
-## Getting Started
+## Car Simulator 
+This program is a little car simulator codeded using Java. This program came as an idea to sharp tools such as design patterns, OOP and coding in general.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Project Architecture
+This project I implemented, for the first time, the MVC architectural design pattern. I have treid to separate between the View, Display, and the Model, WorldGenerator.
+In Control.java, the Controller, it is gotten orders and makes updates of both model and view.
 
 ## Folder Structure
+In the src folder there are few folders:
+CarControl - Car and CarControlPanel are the model's objects of the car and it's safty. Control is the Controllers of the program.
+GUI - where are all the GUI components.
+Photos - imgs that are used in the program.
+Safty - passing lanes and blind spot senesors. It supposed to be more developed but evnetually there was no need.
+World - the model's folder, and the model itself - WorldGenerator.
 
-The workspace contains two folders by default, where:
+## Design patterns
+In addition to MVC I used other design patterns such as:
+Singleton - Display (the view), WorldGenerator (the model), Car, CarControlPanel.
+Abstract Factory - in safty folder. At first, it suppossed to have a lane alert but there was no need.
+Delegation - using Rectangle as a field of each model's object that represents in the GUI and utilize it's functions and methods.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Interfaces
+In addition to Abstract use in Safety there are few interfaces that apllied the Polymorphism Principle of OOP:
+World - for all the model's objects that have represent in the GUI.
+RepresentGUI - for all the view's objects that draws in the GUI
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+The use of polymorphism was needed in order to manage both model and view's objects, espacially by the controller (with HashMap).
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Notes
+The GUI package has created by my University. Here the doc https://u.cs.biu.ac.il/~kleinay/biuoop-1.4-doc/ .
 
-## Dependency Management
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+
+https://github.com/ErezChamilevsky/CarSimulator/assets/118533992/dac98fb8-4b81-47ef-b2bc-9da58f29366d
+
+
