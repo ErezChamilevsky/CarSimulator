@@ -11,7 +11,7 @@ In the src folder there are few folders:
 - CarControl - Car and CarControlPanel are the model's objects of the car and it's safty. Control is the Controllers of the program.
 - GUI - where are all the GUI components.
 - Photos - images are used in the program.
-- Safty - passing lanes and blind spot senesors. It supposed to be more developed but evnetually there was no need.
+- Safety - passing lanes and blind spot senesors. It supposed to be more developed but evnetually there was no need.
 - World - the model's folder, and the model itself - WorldGenerator.
 
 ## Design patterns
